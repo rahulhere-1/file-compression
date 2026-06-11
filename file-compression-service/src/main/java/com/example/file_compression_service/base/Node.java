@@ -4,6 +4,7 @@ public class Node {
 
     Node left;
     Node right;
+    int count;
 
     Node(Node left,Node right){
         this.left = left;
