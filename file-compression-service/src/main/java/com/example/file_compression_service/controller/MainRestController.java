@@ -16,6 +16,11 @@ public class MainRestController {
 
     @PostMapping("/compress")
     public ResponseEntity<String> compressFile(@RequestParam("uploadFile") MultipartFile file){
+        try {
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         log.info("file name: {}",file.getOriginalFilename());
         log.info("file size: {} bytes",file.getSize());
         return new ResponseEntity<>("successfully compressed", HttpStatus.CREATED);
