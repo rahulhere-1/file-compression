@@ -6,10 +6,14 @@ public class Node implements Comparable<Node> {
     private Node right;
     private final int frequency;
 
-    Node(Node left,Node right){
+    public Node(Node left,Node right){
         this.left = left;
         this.right = right;
         this.frequency = left.getFrequency() + right.getFrequency();
+    }
+
+    Node(int frequency){
+        this.frequency = frequency;
     }
 
     public Node getLeft() {
