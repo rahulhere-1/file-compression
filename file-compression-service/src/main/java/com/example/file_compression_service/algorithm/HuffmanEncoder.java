@@ -3,26 +3,34 @@ package com.example.file_compression_service.algorithm;
 import com.example.file_compression_service.base.CodeTree;
 import com.example.file_compression_service.base.Leaf;
 import com.example.file_compression_service.base.Node;
+import org.springframework.stereotype.Service;
 
+import java.io.IOError;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
+
 
 public class HuffmanEncoder {
 
     private final CodeTree codeTree;
     private final Queue<Node> queue;
     private final Map<Character,String> huffmanCodes;
-    HuffmanEncoder(CodeTree codeTree){
+    public HuffmanEncoder(CodeTree codeTree){
         this.codeTree = codeTree;
         queue = new PriorityQueue<>();
         huffmanCodes = new HashMap<>();
     }
 
-    public String compress(){
+    public void compress() throws IOException  {
         String text = codeTree.getText();
         codeTree.setCharacterFrequencyMap(calculateCharacterFrequencies(text));
         Node root = generateCodeTree();
-        generateHuffmanCodes(root,"");
-        return getEncodedText();
+        generateHuffmanCodes(root, "");
+        byte fileBytes[] = getEncodedText().getBytes();
+        Path path = Path.of("C:\\files\\compressed.txt");
+        Files.write(path, fileBytes);
     }
 
     private void generateHuffmanCodes(Node root, String code) {

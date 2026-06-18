@@ -5,26 +5,10 @@ import java.util.Map;
 
 public class CodeTree {
 
-    private Node head;
     private String text;
     private Map<Character,String> huffmanCodes;
     private Map<Character,Integer> characterFrequencyMap;
 
-
-    public CodeTree(Node head) {
-        this.head = head;
-        huffmanCodes = new HashMap<>();
-        characterFrequencyMap = new HashMap<>();
-    }
-
-
-    public Node getHead() {
-        return head;
-    }
-
-    public void setHead(Node head) {
-        this.head = head;
-    }
 
     public String getText() {
         return text;

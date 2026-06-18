@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/file")
 public class MainRestController {
@@ -16,17 +18,15 @@ public class MainRestController {
     @Autowired
     private FileCompressionService fileCompressionService;
 
-    private static final Logger log = LoggerFactory.getLogger(MainRestController.class);
 
     @PostMapping("/compress")
-    public ResponseEntity<String> compressFile(@RequestParam("uploadFile") MultipartFile file){
+    public ResponseEntity<String> compressFile(@RequestParam("uploadFile") List<MultipartFile> files){
+
         try {
-            log.info("file name: {}",file.getOriginalFilename());
-            log.info("file size: {} bytes",file.getSize());
-            fileCompressionService.compressFile(file);
+            fileCompressionService.compressFile(files);
         } catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return new ResponseEntity<>("successfully compressed", HttpStatus.CREATED);
