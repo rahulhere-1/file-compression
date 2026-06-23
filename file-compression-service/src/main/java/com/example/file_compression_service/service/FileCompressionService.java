@@ -32,9 +32,8 @@ public class FileCompressionService {
         CodeTree codeTree = new CodeTree();
         codeTree.setText(content);
         HuffmanEncoder huffmanEncoder = new HuffmanEncoder(codeTree);
+        huffmanEncoder.setFileName(file.getOriginalFilename());
         huffmanEncoder.compress();
-
-
     }
 
     private MultipartFile validateFile(List<MultipartFile> files) {
